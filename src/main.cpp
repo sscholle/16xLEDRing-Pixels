@@ -6,20 +6,19 @@
 #define LED_PIN 5
 #define COLOR_ORDER GRB
 #define NUM_LEDS 16
-
 #define NUM_MODES 6
+
+const byte STEP_DELAY_PIN = PIN_A0; // control speed with the delay value from analog input (10K potentiometer)
+const byte BUTTON_PIN = PIN3;
 
 int HUE = 0;
 int SATURATION = 255;
-int BRIGHTNESS = 64;
-int STEPS = 7;
-int STEP_DELAY = 20;
+int BRIGHTNESS = 128;   // also affects power consumption (lower value to reduce power)
+int STEPS = 16;          // change color value by this amount each time
+int STEP_DELAY = 20;    // default step delay
 
 int DELAY_MAX = 100;
 int DELAY_MIN = 1;
-
-const byte STEP_DELAY_PIN = PIN_A0;
-const byte BUTTON_PIN = PIN3;
 
 uint8_t gHue = 0; // rotating "base color" used by confetti
 
@@ -92,14 +91,12 @@ void keyRelease()
 // SOLID ----------------------------------------------------
 void solid()
 {
-
   fill_solid(leds, NUM_LEDS, CHSV(HUE, SATURATION, BRIGHTNESS));
   FastLED.show();
 }
 
 void rainbow()
 {
-
   static uint8_t startIndex = 0;
   startIndex = startIndex + 1; /* motion speed */
 

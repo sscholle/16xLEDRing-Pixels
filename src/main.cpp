@@ -1,5 +1,15 @@
 #include <Arduino.h>
-//Code by Erin St. Blaine for Adafruit.com
+
+/*
+  16xLEDRing
+
+  This Sketch includes many different effects for RGB LED Rings
+  Each mode can be selected with an input (button)
+  The speed of the effect can be changed
+
+  Adapted Sketch to include Step Delay control using a Potentiometer (Analog input)
+  Original Code by Erin St. Blaine for Adafruit.com
+*/
 
 #include <FastLED.h>
 
@@ -14,7 +24,7 @@ const byte BUTTON_PIN = PIN3;
 int HUE = 0;
 int SATURATION = 255;
 int BRIGHTNESS = 128;   // also affects power consumption (lower value to reduce power)
-int STEPS = 16;          // change color value by this amount each time
+int STEPS = 4;          // change color value by this amount each time
 int STEP_DELAY = 20;    // default step delay
 
 int DELAY_MAX = 100;
@@ -195,8 +205,8 @@ void loop()
     prevKeyState = currKeyState;
   }
 
+  EVERY_N_MILLISECONDS(300) { updateStepDelay(); } // no need to read the step delay input every cycle
   EVERY_N_MILLISECONDS(STEP_DELAY) { gHue++; } // slowly cycle the "base color" through the rainbow
   FastLED.show();
   FastLED.delay(STEP_DELAY);
-  updateStepDelay();
 }

@@ -19,7 +19,7 @@
 #define NUM_MODES 6
 
 const byte STEP_DELAY_PIN = PIN_A0; // control speed with the delay value from analog input (10K potentiometer)
-const byte BUTTON_PIN = PIN3;
+const byte BUTTON_PIN = PIN3;// trigger alternate patterns
 
 int HUE = 0;
 int SATURATION = 255;
@@ -72,7 +72,7 @@ void shortKeyPress()
 void longKeyPress()
 {
   Serial.println("long");
-  ledMode = 888;
+  ledMode = 888;// does a mode reset
 }
 
 // called when key goes from not pressed to pressed
